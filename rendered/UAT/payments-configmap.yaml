@@ -1,0 +1,41 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: payments-interface-config
+  namespace: ns-payments-uat
+  labels:
+    app: tibco-bw
+    managed-by: prebuild
+data:
+  # --- Interface identity (from the UI) ---
+  INTERFACE_ID: "6655"
+  SCENARIO_ID: "1367"
+  INTERFACE_LEANIX_URL: "https://adidas.leanix.net/adidasProduction/factsheet/Interface/9876"
+  ENVIRONMENT: "UAT"
+
+  # --- Source system (resolved from metadata.sources) ---
+  SOURCE_SYSTEM: "SAP"
+  SOURCE_HOST: "sap.dev.internal"
+  SOURCE_PORT: "3300"
+  SOURCE_USER: "RFC_TIBCO"
+
+  # --- Target system (resolved from metadata.targets) ---
+  TARGET_SYSTEM: "afs"
+  TARGET_JDBC_URL: "${target.jdbcUrl}"
+  TARGET_HOST: "${target.host}"
+
+  # --- TIBCO EMS (resolved by namespace) ---
+  EMS_SERVER_URL: "ssl://ems-payments.uat.internal:7243"
+  EMS_USER: "ems_payments"
+  EMS_SSL_ENABLED: "true"
+
+  # --- Kafka (resolved by environment) ---
+  KAFKA_BOOTSTRAP_SERVERS: "kafka-uat-1:9093,kafka-uat-2:9093"
+  KAFKA_SCHEMA_REGISTRY: "https://schema-registry.uat.internal:8081"
+  KAFKA_SECURITY_PROTOCOL: "SASL_SSL"
+
+  # --- Performance tuning (resolved from performance.yaml by App size) ---
+  EMS_MAX_SESSIONS: "100"
+  EMS_FLOW_LIMIT: "512MB"
+  KAFKA_MAX_SESSIONS: "25"
+  KAFKA_FLOW_LIMIT: "5000"
