@@ -1,0 +1,41 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: payments-interface-config
+  namespace: ns-payments-sit
+  labels:
+    app: tibco-bw
+    managed-by: prebuild
+data:
+  # --- Interface identity (from the UI) ---
+  INTERFACE_ID: "1234"
+  SCENARIO_ID: "4567"
+  INTERFACE_LEANIX_URL: "https://adidas.leanix.net/adidasProduction/factsheet/Interface/6655"
+  ENVIRONMENT: "SIT"
+
+  # --- Source system (resolved from metadata.sources) ---
+  SOURCE_SYSTEM: "SAP"
+  SOURCE_HOST: "sap.dev.internal"
+  SOURCE_PORT: "3300"
+  SOURCE_USER: "RFC_TIBCO"
+
+  # --- Target system (resolved from metadata.targets) ---
+  TARGET_SYSTEM: "Oracle"
+  TARGET_JDBC_URL: "${target.jdbcUrl}"
+  TARGET_HOST: "${target.host}"
+
+  # --- TIBCO EMS (resolved by namespace) ---
+  EMS_SERVER_URL: "tcp://ems-payments.sit.internal:7222"
+  EMS_USER: "ems_payments"
+  EMS_SSL_ENABLED: "false"
+
+  # --- Kafka (resolved by environment) ---
+  KAFKA_BOOTSTRAP_SERVERS: "kafka-sit-1:9092,kafka-sit-2:9092"
+  KAFKA_SCHEMA_REGISTRY: "http://schema-registry.sit.internal:8081"
+  KAFKA_SECURITY_PROTOCOL: "PLAINTEXT"
+
+  # --- Performance tuning (resolved from performance.yaml by App size) ---
+  EMS_MAX_SESSIONS: "100"
+  EMS_FLOW_LIMIT: "512MB"
+  KAFKA_MAX_SESSIONS: "25"
+  KAFKA_FLOW_LIMIT: "5000"
