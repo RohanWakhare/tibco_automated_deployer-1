@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: payments-kafka-app
+  namespace: ns-payments-dev
+  labels:
+    app: payments-kafka-app
+    segment: kafka
+    managed-by: prebuild
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: payments-kafka-app
+  template:
+    metadata:
+      labels:
+        app: payments-kafka-app
+        segment: kafka
+    spec:
+      containers:
+        - name: tibco-bw
+          image: tibco/bwce:latest
+          # --- Pod resources (resolved from performance.yaml by App size) ---
+          resources:
+            requests:
+              cpu: "${perf.kafka.requests.cpu}"
+              memory: "${perf.kafka.requests.memory}"
+            limits:
+              cpu: "${perf.kafka.limits.cpu}"
+              memory: "${perf.kafka.limits.memory}"
+          env:
+            # --- Heap memory (JVM) ---
+            - name: JAVA_OPTS
+              value: "-Xms${perf.kafka.heap} -Xmx${perf.kafka.heap}"
+          # ConfigMap supplies the EMS/Kafka tuning (max sessions, flow limit).
+          envFrom:
+            - configMapRef:
+                name: payments-interface-config

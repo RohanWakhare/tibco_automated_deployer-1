@@ -1,0 +1,41 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: payments-interface-config
+  namespace: ns-payments-sit
+  labels:
+    app: tibco-bw
+    managed-by: prebuild
+data:
+  # --- Interface identity (from the UI) ---
+  INTERFACE_ID: "${interfaceId}"
+  SCENARIO_ID: "${scenarioId}"
+  INTERFACE_LEANIX_URL: "${interfaceLeanIXURL}"
+  ENVIRONMENT: "${environment}"
+
+  # --- Source system (resolved from metadata.sources) ---
+  SOURCE_SYSTEM: "${sourceSystem}"
+  SOURCE_HOST: "${source.host}"
+  SOURCE_PORT: "${source.port}"
+  SOURCE_USER: "${source.user}"
+
+  # --- Target system (resolved from metadata.targets) ---
+  TARGET_SYSTEM: "${targetSystem}"
+  TARGET_JDBC_URL: "${target.jdbcUrl}"
+  TARGET_HOST: "${target.host}"
+
+  # --- TIBCO EMS (resolved by namespace) ---
+  EMS_SERVER_URL: "${ems.serverUrl}"
+  EMS_USER: "${ems.user}"
+  EMS_SSL_ENABLED: "${ems.sslEnabled}"
+
+  # --- Kafka (resolved by environment) ---
+  KAFKA_BOOTSTRAP_SERVERS: "${kafka.bootstrapServers}"
+  KAFKA_SCHEMA_REGISTRY: "${kafka.schemaRegistry}"
+  KAFKA_SECURITY_PROTOCOL: "${kafka.securityProtocol}"
+
+  # --- Performance tuning (resolved from performance.yaml by App size) ---
+  EMS_MAX_SESSIONS: "${perf.ems.maxSessions}"
+  EMS_FLOW_LIMIT: "${perf.ems.flowLimit}"
+  KAFKA_MAX_SESSIONS: "${perf.kafka.maxSessions}"
+  KAFKA_FLOW_LIMIT: "${perf.kafka.flowLimit}"

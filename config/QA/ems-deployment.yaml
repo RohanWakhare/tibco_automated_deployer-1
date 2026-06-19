@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: payments-ems-app
+  namespace: ns-payments-qa
+  labels:
+    app: payments-ems-app
+    segment: ems
+    managed-by: prebuild
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: payments-ems-app
+  template:
+    metadata:
+      labels:
+        app: payments-ems-app
+        segment: ems
+    spec:
+      containers:
+        - name: tibco-bw
+          image: tibco/bwce:latest
+          # --- Pod resources (resolved from performance.yaml by App size) ---
+          resources:
+            requests:
+              cpu: "${perf.ems.requests.cpu}"
+              memory: "${perf.ems.requests.memory}"
+            limits:
+              cpu: "${perf.ems.limits.cpu}"
+              memory: "${perf.ems.limits.memory}"
+          env:
+            # --- Heap memory (JVM) ---
+            - name: JAVA_OPTS
+              value: "-Xms${perf.ems.heap} -Xmx${perf.ems.heap}"
+          # ConfigMap supplies the EMS/Kafka tuning (max sessions, flow limit).
+          envFrom:
+            - configMapRef:
+                name: payments-interface-config
