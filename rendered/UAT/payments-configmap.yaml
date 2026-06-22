@@ -8,16 +8,16 @@ metadata:
     managed-by: prebuild
 data:
   # --- Interface identity (from the UI) ---
-  INTERFACE_ID: "6655"
-  SCENARIO_ID: "1367"
-  INTERFACE_LEANIX_URL: "https://adidas.leanix.net/adidasProduction/factsheet/Interface/9876"
+  INTERFACE_ID: "7890"
+  SCENARIO_ID: "5544"
+  INTERFACE_LEANIX_URL: "https://adidas.leanix.net/adidasProduction/factsheet/Interface/7890"
   ENVIRONMENT: "UAT"
 
   # --- Source system (resolved from metadata.sources) ---
-  SOURCE_SYSTEM: "SAP"
-  SOURCE_HOST: "sap.dev.internal"
-  SOURCE_PORT: "3300"
-  SOURCE_USER: "RFC_TIBCO"
+  SOURCE_SYSTEM: "wms"
+  SOURCE_HOST: "${source.host}"
+  SOURCE_PORT: "${source.port}"
+  SOURCE_USER: "${source.user}"
 
   # --- Target system (resolved from metadata.targets) ---
   TARGET_SYSTEM: "afs"
