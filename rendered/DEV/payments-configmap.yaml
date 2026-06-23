@@ -8,19 +8,19 @@ metadata:
     managed-by: prebuild
 data:
   # --- Interface identity (from the UI) ---
-  INTERFACE_ID: "8888"
-  SCENARIO_ID: "1116"
-  INTERFACE_LEANIX_URL: "https://adidas.leanix.net/adidasProduction/factsheet/Interface/8888"
+  INTERFACE_ID: "2222"
+  SCENARIO_ID: "2233"
+  INTERFACE_LEANIX_URL: "https://adidas.leanix.net/adidasProduction/factsheet/Interface/2222"
   ENVIRONMENT: "DEV"
 
   # --- Source system (resolved from metadata.sources) ---
-  SOURCE_SYSTEM: "turkey"
+  SOURCE_SYSTEM: "afs"
   SOURCE_HOST: "${source.host}"
   SOURCE_PORT: "${source.port}"
   SOURCE_USER: "${source.user}"
 
   # --- Target system (resolved from metadata.targets) ---
-  TARGET_SYSTEM: "nafta"
+  TARGET_SYSTEM: "wms"
   TARGET_JDBC_URL: "${target.jdbcUrl}"
   TARGET_HOST: "${target.host}"
 
