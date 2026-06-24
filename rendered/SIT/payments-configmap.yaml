@@ -8,9 +8,9 @@ metadata:
     managed-by: prebuild
 data:
   # --- Interface identity (from the UI) ---
-  INTERFACE_ID: "1234"
-  SCENARIO_ID: "5678"
-  INTERFACE_LEANIX_URL: "https://adidas.leanix.net/adidasProduction/factsheet/Interface/1234"
+  INTERFACE_ID: "7650"
+  SCENARIO_ID: "1234"
+  INTERFACE_LEANIX_URL: "https://adidas.leanix.net/adidasProduction/factsheet/Interface/7650"
   ENVIRONMENT: "SIT"
 
   # --- Source system (resolved from metadata.sources) ---
